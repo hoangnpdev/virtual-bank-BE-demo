@@ -1,0 +1,17 @@
+POST localhost:3000/bank/login
+
+
+
+###
+
+GET localhost:3000/bank/hello
+
+
+###
+POST localhost:3000/payment-gateway/payment
+Content-Type: application/json
+
+{
+  "accessCode": "b6f54d0e-f25c-4cdb-b902-b3f9679146fe",
+  "amount": 100000
+}

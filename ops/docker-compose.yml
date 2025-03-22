@@ -1,0 +1,16 @@
+services:
+  citus01:
+    image: nph/citus:13
+    container_name: citus01
+    ports:
+      - 15432:5432
+  citus02:
+    image: nph/citus:13
+    container_name: citus02
+    ports:
+      - 25432:5432
+  citus03:
+    image: nph/citus:13
+    container_name: citus03
+    ports:
+      - 35432:5432

@@ -1,0 +1,39 @@
+@startuml
+class BankService {
+    transfer()
+    register()
+    login()
+}
+class PaymentService {
+    register()
+    initPayment()
+    purchase()
+}
+
+package Citus <<node>> {
+    class Account {
+        account_id
+        account_name
+        card_id
+        balance
+        password
+    }
+    class Merchant {
+        merchant_id
+        account_id
+        access_code
+    }
+    class Payment {
+        merchant_id
+        payment_id
+        amount
+        status
+    }
+}
+
+BankService --> Account
+
+PaymentService --> Merchant
+PaymentService --> Payment
+
+@enduml
