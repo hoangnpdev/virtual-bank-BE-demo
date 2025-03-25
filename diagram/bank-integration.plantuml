@@ -1,0 +1,53 @@
+@startuml
+
+
+
+
+
+
+package shopee {
+
+    package shopee_frontend <<Node>> {
+    }
+    shopee_frontend -- shopee_backend
+
+    package shopee_backend <<Node>> {
+    }
+
+}
+together {
+   circle user
+   package virtual_bank {
+   package virtual_bank_frontend <<Node>> {
+       }
+      virtual_bank_frontend -- virtual_bank_backend
+   package virtual_bank_backend <<Node>> {
+   }
+
+   }
+}
+
+
+
+
+
+
+user --> shopee_frontend: 1. Chọn Thanh Toán
+
+
+shopee_backend --> virtual_bank_backend: 2 Tạo hóa đơn
+note bottom on link
+call api:
+POST host:port/payment-gateway/payment
+end note
+
+user --> virtual_bank_frontend: 3. Thanh Toán
+note bottom on link
+1. Đưa user sang virtual_bank_frontend
+2. xác nhận thanh toán
+3. trở về trang xác nhận thanh toán trên shopee
+end note
+
+shopee_backend --> virtual_bank_backend: 4. cập nhật trạng thái đơn hàng
+
+@enduml

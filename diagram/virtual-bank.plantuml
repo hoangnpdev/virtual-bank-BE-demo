@@ -1,4 +1,15 @@
 @startuml
+left to right direction
+
+package Frontend:Reactjs {
+
+
+}
+
+"Frontend:Reactjs" --> "Backend:Nestjs"
+
+
+package Backend:Nestjs {
 class BankService {
     transfer()
     register()
@@ -9,10 +20,17 @@ class PaymentService {
     initPayment()
     purchase()
 }
+}
 
-package Citus <<node>> {
+note top of "Backend:Nestjs"
+Backend use stateless authentication/Authorization.
+So its number of instances can be scaled up infinitely
+end note
+
+together {
+package "Citus (coordinator)" <<node>> {
     class Account {
-        account_id
+        account_id: distributed field
         account_name
         card_id
         balance
@@ -20,15 +38,32 @@ package Citus <<node>> {
     }
     class Merchant {
         merchant_id
-        account_id
+        account_id: distributed field
         access_code
     }
     class Payment {
+        account_id: distributed field
         merchant_id
         payment_id
         amount
         status
     }
+}
+
+package "Citus (worker 1)" <<node>> {
+}
+package "Citus (worker 2)" <<node>> {
+}
+package "Citus (worker ---)" <<node>> {
+}
+package "Citus (worker n)" <<node>> {
+}
+
+"Citus (coordinator)" --> "Citus (worker 1)"
+"Citus (coordinator)" --> "Citus (worker 2)"
+"Citus (coordinator)" --> "Citus (worker ---)"
+"Citus (coordinator)" --> "Citus (worker n)"
+
 }
 
 BankService --> Account
