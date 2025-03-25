@@ -6,4 +6,4 @@ Its business logic is very simple. What I focus on is distributed transaction (2
 
 
 ##### Architecture:
-![arch]:(diagram/architecture.png)
+![arch](diagram/architecture.png)
